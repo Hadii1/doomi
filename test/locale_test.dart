@@ -4,14 +4,17 @@ import 'package:doomi/interfaces/local_storage.dart';
 import 'package:doomi/providers/locale_provider.dart';
 import 'package:doomi/utils/enums.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-class MockLocalStorage extends Mock implements ILocalStorage {}
+import 'locale_test.mocks.dart';
 
+@GenerateNiceMocks([MockSpec<ILocalStorage>()])
 void main() {
-  group('LocalNotifier', () {
+  group('Locale Notifier', () {
+    late MockILocalStorage localStorage;
+    setUp(() => localStorage = MockILocalStorage());
     test('initial state is set correctly', () {
-      MockLocalStorage localStorage = MockLocalStorage();
       when(localStorage.getLocale()).thenReturn(DoomiLocale.arabic);
 
       LocalNotifier localNotifier =
@@ -23,7 +26,6 @@ void main() {
 
     test('default locale is used correctly if no locale is previously saved',
         () {
-      MockLocalStorage localStorage = MockLocalStorage();
       when(localStorage.getLocale()).thenReturn(null);
       LocalNotifier localNotifier =
           LocalNotifier(localStorage, DoomiLocale.arabic);
@@ -33,7 +35,6 @@ void main() {
     });
 
     test('setLocal updates the state and saves to local storage', () {
-      MockLocalStorage localStorage = MockLocalStorage();
       LocalNotifier localNotifier =
           LocalNotifier(localStorage, DoomiLocale.english);
 

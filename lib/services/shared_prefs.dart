@@ -22,4 +22,9 @@ class SharedPrefs extends ILocalStorage {
   void saveTheme(ITheme theme) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> initialize() {
+    throw UnimplementedError();
+  }
 }
