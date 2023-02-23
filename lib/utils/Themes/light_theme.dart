@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class LightTheme extends ITheme {
   LightTheme({
-    super.background = const Color(0xff000000),
+    super.name = 'Light Theme',
+    super.background = const Color(0xffffffff),
     super.textColor = const Color(0xff000000),
   });
 }

@@ -3,5 +3,5 @@ import 'package:doomi/services/local_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final localStorageProvider = Provider<ILocalStorage>((ref) {
-  return LocalStorage();
+  return SharedPrefs();
 });
