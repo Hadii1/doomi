@@ -1,8 +1,13 @@
 import 'package:doomi/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const DoomiApp());
+  runApp(
+    const ProviderScope(
+      child: DoomiApp(),
+    ),
+  );
 }
 
 class DoomiApp extends StatelessWidget {
