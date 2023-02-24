@@ -3,14 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
 import 'package:doomi/interfaces/auth.dart' as _i3;
-import 'package:doomi/interfaces/local_storage.dart' as _i6;
-import 'package:doomi/interfaces/online_storage.dart' as _i4;
-import 'package:doomi/interfaces/themes.dart' as _i8;
-import 'package:doomi/models/user.dart' as _i2;
-import 'package:doomi/utils/enums.dart' as _i7;
+import 'package:doomi/interfaces/local_storage.dart' as _i7;
+import 'package:doomi/interfaces/online_storage.dart' as _i5;
+import 'package:doomi/interfaces/themes.dart' as _i9;
+import 'package:doomi/models/user.dart' as _i6;
+import 'package:doomi/utils/enums.dart' as _i8;
+import 'package:firebase_auth/firebase_auth.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -37,59 +38,116 @@ class _FakeUser_0 extends _i1.SmartFake implements _i2.User {
 /// A class which mocks [IAuthService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIAuthService extends _i1.Mock implements _i3.IAuthService {}
+class MockIAuthService extends _i1.Mock implements _i3.IAuthService {
+  @override
+  _i4.Future<_i2.User> registerUser(
+    String? email,
+    String? password,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #registerUser,
+          [
+            email,
+            password,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.User>.value(_FakeUser_0(
+          this,
+          Invocation.method(
+            #registerUser,
+            [
+              email,
+              password,
+            ],
+          ),
+        )),
+        returnValueForMissingStub: _i4.Future<_i2.User>.value(_FakeUser_0(
+          this,
+          Invocation.method(
+            #registerUser,
+            [
+              email,
+              password,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.User>);
+  @override
+  _i4.Future<_i2.User> signIn(
+    String? email,
+    String? password,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signIn,
+          [
+            email,
+            password,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.User>.value(_FakeUser_0(
+          this,
+          Invocation.method(
+            #signIn,
+            [
+              email,
+              password,
+            ],
+          ),
+        )),
+        returnValueForMissingStub: _i4.Future<_i2.User>.value(_FakeUser_0(
+          this,
+          Invocation.method(
+            #signIn,
+            [
+              email,
+              password,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.User>);
+}
 
 /// A class which mocks [IOnlineStorage].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIOnlineStorage extends _i1.Mock implements _i4.IOnlineStorage {
+class MockIOnlineStorage extends _i1.Mock implements _i5.IOnlineStorage {
   @override
-  _i5.Future<_i2.User?> getUser(String? id) => (super.noSuchMethod(
+  _i4.Future<_i6.User?> getUser(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getUser,
           [id],
         ),
-        returnValue: _i5.Future<_i2.User?>.value(),
-        returnValueForMissingStub: _i5.Future<_i2.User?>.value(),
-      ) as _i5.Future<_i2.User?>);
+        returnValue: _i4.Future<_i6.User?>.value(),
+        returnValueForMissingStub: _i4.Future<_i6.User?>.value(),
+      ) as _i4.Future<_i6.User?>);
   @override
-  _i5.Future<_i2.User> saveUser(_i2.User? user) => (super.noSuchMethod(
+  _i4.Future<void> saveUser(_i6.User? user) => (super.noSuchMethod(
         Invocation.method(
           #saveUser,
           [user],
         ),
-        returnValue: _i5.Future<_i2.User>.value(_FakeUser_0(
-          this,
-          Invocation.method(
-            #saveUser,
-            [user],
-          ),
-        )),
-        returnValueForMissingStub: _i5.Future<_i2.User>.value(_FakeUser_0(
-          this,
-          Invocation.method(
-            #saveUser,
-            [user],
-          ),
-        )),
-      ) as _i5.Future<_i2.User>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }
 
 /// A class which mocks [ILocalStorage].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockILocalStorage extends _i1.Mock implements _i6.ILocalStorage {
+class MockILocalStorage extends _i1.Mock implements _i7.ILocalStorage {
   @override
-  _i5.Future<void> initialize() => (super.noSuchMethod(
+  _i4.Future<void> initialize() => (super.noSuchMethod(
         Invocation.method(
           #initialize,
           [],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
   @override
-  void saveLocale(_i7.DoomiLocale? locale) => super.noSuchMethod(
+  void saveLocale(_i8.DoomiLocale? locale) => super.noSuchMethod(
         Invocation.method(
           #saveLocale,
           [locale],
@@ -97,7 +155,7 @@ class MockILocalStorage extends _i1.Mock implements _i6.ILocalStorage {
         returnValueForMissingStub: null,
       );
   @override
-  void saveTheme(_i8.ITheme? theme) => super.noSuchMethod(
+  void saveTheme(_i9.ITheme? theme) => super.noSuchMethod(
         Invocation.method(
           #saveTheme,
           [theme],

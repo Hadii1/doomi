@@ -8,7 +8,12 @@ class DarkTheme extends ITheme {
       : super(
           background: const Color(0xff000000),
           name: 'Dark theme',
+          textFieldBorderColor: Colors.grey,
+          textFieldFocusedBorderColor: Colors.red,
+          accentColor: Colors.red,
           textColor: const Color(0xffffffff),
+          labelStyle: const TextStyle(color: Colors.white, fontSize: 16),
+          hintStyle: TextStyle(color: Colors.grey[50], fontSize: 14),
         );
 
   factory DarkTheme() => _instance;

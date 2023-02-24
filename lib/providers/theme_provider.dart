@@ -4,7 +4,7 @@ import 'package:doomi/providers/local_stoage_provider.dart';
 import 'package:doomi/utils/Themes/light_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final themeProvider = StateNotifierProvider(
+final themeProvider = StateNotifierProvider<ThemeNotifier, ITheme>(
   (ref) => ThemeNotifier(
     ref.watch(localStorageProvider),
   ),

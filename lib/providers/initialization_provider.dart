@@ -9,20 +9,25 @@ import 'package:doomi/providers/online_storage_provider.dart';
 import 'package:doomi/providers/theme_provider.dart';
 import 'package:doomi/providers/user_provider.dart';
 import 'package:doomi/utils/enums.dart';
+import 'package:doomi/utils/general_functions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final appInitializationProvider = FutureProvider<AppInitializationState>(
+final appInitializationProvider =
+    FutureProvider.autoDispose<AppInitializationState>(
   (ref) async {
     final IOnlineStorage db = ref.watch(onlineStorageProvider);
     final IAuthService auth = ref.watch(authServiceProvider);
     final ILocalStorage localStorage = ref.watch(localStorageProvider);
 
     await localStorage.initialize();
+    await Future.delayed(const Duration(seconds: 2));
 
     // Initialize the theming & language state
     // by invoking their providers.
     ref.read(themeProvider);
     ref.read(localProvider);
+
+    return AppInitializationState.loggedIn;
 
     String? userId = auth.userId();
 
@@ -30,7 +35,8 @@ final appInitializationProvider = FutureProvider<AppInitializationState>(
       return AppInitializationState.loggedOut;
     }
 
-    User? user = await db.getUser(userId);
+    User? user = await retry<User?>(() => db.getUser(userId));
+
     ref.read(userProvider.notifier).user = user;
 
     if (user == null) {
