@@ -12,4 +12,4 @@ The app uses firebase firestore and firebase auth services.
 
 After downloading the repo, run "flutter pub get" to fetch the required dependencies.
 
-Here's also an android apk link: https://www.dropbox.com/s/db8ry0le92idr8g/app-release.apk?dl=0
+Here's also an android apk link: https://www.dropbox.com/s/9mba76whyi6d2s4/app-release.apk?dl=0
