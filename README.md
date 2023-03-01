@@ -9,3 +9,5 @@ so that it is archived in the project completed taks section. Exporting data in 
 The exported csv will contain the project details and all the tasks associated with this project.
 
 The app uses firebase firestore and firebase auth services.
+
+After downloading the repo, run "flutter pub get" to fetch the required dependencies.
