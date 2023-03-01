@@ -15,7 +15,7 @@ class SharedPrefs extends ILocalStorage {
 
   @override
   DoomiLocale? getLocale() {
-    String? value = _prefs!.getString('locale_v1');
+    String? value = _prefs?.getString('locale_v1');
     if (value == null) return null;
     if (value == DoomiLocale.arabic.name) return DoomiLocale.arabic;
     return DoomiLocale.english;
@@ -23,12 +23,12 @@ class SharedPrefs extends ILocalStorage {
 
   @override
   void saveLocale(DoomiLocale locale) {
-    _prefs!.setString('locale_v1', locale.name);
+    _prefs?.setString('locale_v1', locale.name);
   }
 
   @override
   ITheme? getTheme() {
-    String? value = _prefs!.getString('theme_v1');
+    String? value = _prefs?.getString('theme_v1');
     if (value == null) return null;
     if (value == LightTheme().name) return LightTheme();
     return DarkTheme();
@@ -36,6 +36,6 @@ class SharedPrefs extends ILocalStorage {
 
   @override
   void saveTheme(ITheme theme) {
-    _prefs!.setString('theme_v1', theme.name);
+    _prefs?.setString('theme_v1', theme.name);
   }
 }

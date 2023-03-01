@@ -1,4 +1,5 @@
 import 'package:doomi/providers/theme_provider.dart';
+import 'package:doomi/utils/styles/spacings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -8,29 +9,20 @@ class CtaButton extends ConsumerStatefulWidget {
     Key? key,
     required this.label,
     required this.onPressed,
-    this.height,
+    this.padding,
     this.enabled = true,
     this.animateEnabledState = false,
-    this.includePadding = false,
-    this.underlinedText = false,
-    this.elevate = true,
-    this.icon,
-    this.borderRadius,
     this.textSize,
     this.animateAsyncProcess = false,
   }) : super(key: key);
 
   final Function() onPressed;
-  final bool includePadding;
-  final bool underlinedText;
+
+  final EdgeInsets? padding;
   final bool animateEnabledState;
-  final double? borderRadius;
   final bool enabled;
-  final bool elevate;
   final String label;
-  final double? height;
   final double? textSize;
-  final Widget? icon;
   final bool animateAsyncProcess;
 
   @override
@@ -57,7 +49,7 @@ class _CtaButtonState extends ConsumerState<CtaButton>
         });
       animation = ColorTween(
         begin: ref.read(themeProvider).accentColor,
-        end: ref.read(themeProvider).accentColor.withOpacity(0.4),
+        end: Colors.grey[400],
       ).animate(animationController!);
     } else {
       animationController = null;
@@ -90,105 +82,77 @@ class _CtaButtonState extends ConsumerState<CtaButton>
   @override
   Widget build(BuildContext context) {
     final theme = ref.watch(themeProvider);
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
-        boxShadow: widget.elevate
-            ? [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 10,
-                ),
-              ]
-            : null,
-      ),
-      child: SizedBox(
-        height: widget.height,
-        child: TextButton(
-          onPressed: !widget.enabled
-              ? null
-              : () async {
-                  if (widget.animateAsyncProcess && loading) return;
+    return TextButton(
+      onPressed: widget.enabled == false
+          ? null
+          : () async {
+              if (widget.animateAsyncProcess && loading) return;
 
-                  FocusScopeNode node = FocusScope.of(context);
-                  if (!node.hasPrimaryFocus) {
-                    node.unfocus();
-                  }
+              // To close the keyboard in case it was opened
+              FocusScopeNode node = FocusScope.of(context);
+              if (!node.hasPrimaryFocus) {
+                node.unfocus();
+              }
 
-                  if (widget.animateAsyncProcess) {
-                    loading = true;
-                    setState(() {});
-                    await widget.onPressed();
-                    loading = false;
-                    setState(() {});
-                  } else {
-                    widget.onPressed();
-                  }
-                },
-          style: TextButton.styleFrom(
-            shadowColor: Colors.black,
-            backgroundColor: widget.animateEnabledState
-                ? animation!.value
-                : theme.accentColor,
-            fixedSize: Size(double.maxFinite, widget.height ?? 62),
-            textStyle: TextStyle(
-              fontSize: 19,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-              decoration:
-                  widget.underlinedText ? TextDecoration.underline : null,
-              // fontFamily: Fonts.avenir,
+              if (widget.animateAsyncProcess) {
+                loading = true;
+                setState(() {});
+                await widget.onPressed();
+                loading = false;
+                setState(() {});
+              } else {
+                widget.onPressed();
+              }
+            },
+      style: TextButton.styleFrom(
+        shadowColor: Colors.black,
+        padding: widget.padding ??
+            const EdgeInsets.symmetric(
+              vertical: Spacings.spacingFactor * 2,
+              horizontal: Spacings.spacingFactor * 3,
             ),
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 12,
-              right: 12,
-              top: 2,
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (widget.icon != null) widget.icon!,
-                widget.animateAsyncProcess
-                    ? AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 300),
-                        child: loading
-                            ? const SpinKitCircle(
-                                size: 40,
-                                color: Colors.white,
-                              )
-                            : Text(
-                                widget.label,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: widget.textSize,
-                                  color: widget.enabled
-                                      ? Colors.white
-                                      : Colors.white.withOpacity(0.6),
-                                ),
-                              ),
-                      )
-                    : Text(
-                        widget.label,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: widget.textSize,
-                          color: widget.enabled
-                              ? Colors.white
-                              : Colors.white.withOpacity(0.6),
-                        ),
-                      ),
-              ],
-            ),
-          ),
+        backgroundColor:
+            widget.animateEnabledState ? animation!.value : theme.accentColor,
+        textStyle: TextStyle(
+          fontSize: 19,
+          fontWeight: FontWeight.w500,
+          color: theme.textColor,
+        ),
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
         ),
       ),
+      child: widget.animateAsyncProcess
+          ? AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: loading
+                  ? const SizedBox(
+                      height: 20,
+                      child: SpinKitPulse(
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                    )
+                  : Text(
+                      widget.label,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: widget.textSize,
+                        color: theme.accentContrast,
+                      ),
+                    ),
+            )
+          : Text(
+              widget.label,
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: widget.textSize,
+                color: widget.enabled
+                    ? Colors.white
+                    : Colors.white.withOpacity(0.6),
+              ),
+            ),
     );
   }
 }

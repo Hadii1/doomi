@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CustomTextField extends ConsumerWidget {
   const CustomTextField({
+    super.key,
     required this.onChanged,
     this.onSubmitted,
     this.inputType = TextInputType.text,
@@ -38,10 +39,12 @@ class CustomTextField extends ConsumerWidget {
           ),
         TextField(
           onChanged: onChanged,
+          textCapitalization: TextCapitalization.sentences,
           onSubmitted: onSubmitted,
           cursorWidth: 1,
           cursorHeight: 16,
           cursorColor: theme.textColor,
+          style: theme.body3,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: theme.hintStyle,

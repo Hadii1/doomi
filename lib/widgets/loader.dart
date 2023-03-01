@@ -20,7 +20,7 @@ class Loader extends ConsumerWidget {
     return Padding(
       padding: EdgeInsets.only(top: topPadding),
       child: Center(
-        child: SpinKitCircle(
+        child: SpinKitPulse(
           color: color ?? ref.watch(themeProvider).textColor,
           size: size,
         ),

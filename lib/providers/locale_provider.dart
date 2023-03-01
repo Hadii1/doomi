@@ -20,11 +20,11 @@ class LocalNotifier extends StateNotifier<DoomiLocale> {
     this._defaultDeviceLocale,
   ) : super(
           _storage.getLocale() ?? _defaultDeviceLocale,
-        ) {
-    _initState();
-  }
+        );
 
-  _initState() {
+  // List<Locale> supportedLocales
+
+  init() {
     DoomiLocale? savedLocale = _storage.getLocale();
     if (savedLocale == null) {
       setLocal(_defaultDeviceLocale);

@@ -3,17 +3,20 @@ import 'package:doomi/utils/styles/spacings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CustomTextField extends ConsumerWidget {
+class CustomTextField extends ConsumerStatefulWidget {
   const CustomTextField({
+    Key? key,
+    this.hint = '',
+    this.initialText = '',
     required this.onChanged,
     this.onSubmitted,
+    this.labelAboveField = '',
     this.inputType = TextInputType.text,
     this.inputAction = TextInputAction.done,
-    this.hint = '',
-    this.labelAboveField = '',
-  });
+  }) : super(key: key);
 
   final String hint;
+  final String initialText;
   final Function(String) onChanged;
   final Function(String)? onSubmitted;
   final String labelAboveField;
@@ -21,29 +24,50 @@ class CustomTextField extends ConsumerWidget {
   final TextInputAction inputAction;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends ConsumerState<CustomTextField> {
+  late final TextEditingController textController;
+
+  @override
+  void initState() {
+    textController = TextEditingController(text: widget.initialText);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = ref.watch(themeProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (labelAboveField.isNotEmpty)
+        if (widget.labelAboveField.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(
               bottom: Spacings.spacingFactor * 2,
             ),
             child: Text(
-              labelAboveField,
+              widget.labelAboveField,
               style: theme.labelStyle,
             ),
           ),
         TextField(
-          onChanged: onChanged,
-          onSubmitted: onSubmitted,
+          controller: textController,
+          onChanged: widget.onChanged,
+          onSubmitted: widget.onSubmitted,
           cursorWidth: 1,
           cursorHeight: 16,
           cursorColor: theme.textColor,
+          style: theme.body3,
           decoration: InputDecoration(
-            hintText: hint,
+            hintText: widget.hint,
             hintStyle: theme.hintStyle,
             contentPadding: const EdgeInsets.all(16),
             enabledBorder: OutlineInputBorder(
