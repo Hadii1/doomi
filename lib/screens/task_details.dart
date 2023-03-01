@@ -46,12 +46,12 @@ class TaskDetailsScreen extends ConsumerWidget {
   }
 
   Future<void> onChangeStatusPressed(
-      WidgetRef ref, String statusName, BuildContext context) async {
+      WidgetRef ref, String statusName, BuildContext context,Task task) async {
     Status status = ref
         .watch(statusesProvider(arg.task.projectID))
         .data!
         .firstWhere((e) => e.title == statusName);
-    Task updated = arg.task.changeStatus(status.id);
+    Task updated = task.changeStatus(status.id);
     try {
       await ref
           .read(tasksProvider(arg.task.projectID).notifier)
@@ -62,8 +62,8 @@ class TaskDetailsScreen extends ConsumerWidget {
   }
 
   Future<void> onMarkTaskAsCompletedPressed(
-      WidgetRef ref, BuildContext context) async {
-    Task updated = arg.task.markAsCompleted();
+      WidgetRef ref, BuildContext context, Task task) async {
+    Task updated = task.markAsCompleted();
     try {
       await ref
           .read(tasksProvider(arg.task.projectID).notifier)
@@ -239,7 +239,7 @@ class TaskDetailsScreen extends ConsumerWidget {
                       .firstWhere((e) => e.id == task.statusId)
                       .title,
                   onOptionSelected: (String name) async =>
-                      await onChangeStatusPressed(ref, name, context),
+                      await onChangeStatusPressed(ref, name, context,task),
                   fillColor: theme.backgroundLightContrast,
                   boxBorder: Border.all(
                     width: 0,
@@ -252,12 +252,11 @@ class TaskDetailsScreen extends ConsumerWidget {
                   height: Spacings.spacingBetweenElements,
                 ),
                 ActionTile(
-                  label: translate('markTaskAsCompleted', context),
-                  icon: Icons.check,
-                  animatedLoading: true,
-                  onTap: () async =>
-                      await onMarkTaskAsCompletedPressed(ref, context),
-                ),
+                    label: translate('markTaskAsCompleted', context),
+                    icon: Icons.check,
+                    animatedLoading: true,
+                    onTap: () async =>
+                        await onMarkTaskAsCompletedPressed(ref, context, task)),
                 ActionTile(
                   label: translate('deleteTask', context),
                   animatedLoading: true,
