@@ -47,5 +47,5 @@ app.*.map.json
 **/macos/Flutter/GeneratedPluginRegistrant.swift
 
 # google keys
-ios/Runner/GoogleService-Info.plist
-android/app/google-services.json
+# ios/Runner/GoogleService-Info.plist
+# android/app/google-services.json
