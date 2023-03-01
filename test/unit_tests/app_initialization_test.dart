@@ -1,7 +1,7 @@
 import 'package:doomi/interfaces/auth.dart';
 import 'package:doomi/interfaces/local_storage.dart';
 import 'package:doomi/interfaces/online_storage.dart';
-import 'package:doomi/models/user.dart';
+import 'package:doomi/models/database%20models/user.dart';
 import 'package:doomi/providers/auth_service_provider.dart';
 import 'package:doomi/providers/initialization_provider.dart';
 import 'package:doomi/providers/local_stoage_provider.dart';
@@ -13,7 +13,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 
-import 'app_initialization_test.mocks.dart';
+import '../mock_objects.dart/app_initialization_test.mocks.dart';
 
 @GenerateNiceMocks([
   MockSpec<IAuthService>(),

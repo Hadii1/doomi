@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'locale_test.mocks.dart';
+import '../mock_objects.dart/locale_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<ILocalStorage>()])
 void main() {
@@ -19,7 +19,7 @@ void main() {
 
       LocalNotifier localNotifier =
           LocalNotifier(localStorage, DoomiLocale.english);
-
+      localNotifier.init();
       final state = localNotifier.state;
       expect(state, DoomiLocale.arabic);
     });
@@ -29,6 +29,7 @@ void main() {
       when(localStorage.getLocale()).thenReturn(null);
       LocalNotifier localNotifier =
           LocalNotifier(localStorage, DoomiLocale.arabic);
+      localNotifier.init();
 
       verify(localStorage.saveLocale(DoomiLocale.arabic)).called(1);
       expect(localNotifier.state, DoomiLocale.arabic);
@@ -37,7 +38,7 @@ void main() {
     test('setLocal updates the state and saves to local storage', () {
       LocalNotifier localNotifier =
           LocalNotifier(localStorage, DoomiLocale.english);
-
+      localNotifier.init();
       localNotifier.setLocal(DoomiLocale.arabic);
 
       verify(localStorage.saveLocale(DoomiLocale.arabic)).called(1);

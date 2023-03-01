@@ -35,3 +35,6 @@ Future<T> retry<T>(
   }
 }
 
+String capitalizeFirstLetter(String s) => s.isEmpty
+    ? ''
+    : s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();

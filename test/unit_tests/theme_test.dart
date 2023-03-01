@@ -8,7 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'theme_test.mocks.dart';
+import '../mock_objects.dart/theme_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<ILocalStorage>()])
 void main() {
@@ -21,6 +21,7 @@ void main() {
         when(localStorage.getTheme()).thenReturn(null);
 
         ThemeNotifier themeNotifier = ThemeNotifier(localStorage);
+        themeNotifier.init();
 
         verify(localStorage.saveTheme(LightTheme())).called(1);
         final state = themeNotifier.state;
@@ -32,6 +33,7 @@ void main() {
       'setTheme updates the state and saves to local storage',
       () {
         ThemeNotifier themeNotifier = ThemeNotifier(localStorage);
+        themeNotifier.init();
 
         themeNotifier.setTheme(DarkTheme());
 

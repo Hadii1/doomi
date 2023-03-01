@@ -12,7 +12,7 @@ class CustomErrorWidget extends ConsumerWidget {
     this.actionText = 'Try again',
     this.errorText = 'Apologies,\nsomething went wrong.',
     // this.showCancelOption = true,
-    this.fontSize = 19,
+    this.fontSize = 17,
     this.bottomPadding = 72,
     this.buttonHorizontalPadding,
   }) : super(key: key);
@@ -44,17 +44,15 @@ class CustomErrorWidget extends ConsumerWidget {
         ),
         Padding(
           padding: EdgeInsets.symmetric(
-            vertical: Spacings.spacingFactor * 3,
+            vertical: Spacings.spacingFactor * 2,
             horizontal: buttonHorizontalPadding != null
                 ? buttonHorizontalPadding!
                 : MediaQuery.of(context).size.width * 0.25,
           ),
           child: CtaButton(
             label: actionText,
-            elevate: true,
             onPressed: onActionPressed,
             textSize: fontSize,
-            height: fontSize * 2.7,
           ),
         ),
         // showCancelOption

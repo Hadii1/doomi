@@ -14,11 +14,15 @@ class DoomiLocalizations {
     return Localizations.of<DoomiLocalizations>(context, DoomiLocalizations)!;
   }
 
-  static const _DoomiLocalizationsDelegate delegate =
-      _DoomiLocalizationsDelegate();
+  static const DoomiLocalizationsDelegate delegate =
+      DoomiLocalizationsDelegate();
 
   late final Map<String, String> _localizedValues;
   static final List<String> languages = ['en', 'ar'];
+
+  Future<void> loadTest() async {
+    _localizedValues = {};
+  }
 
   Future<void> load() async {
     /// Get the langauge data, decode it and cast it to the [_localizedValues].
@@ -31,16 +35,17 @@ class DoomiLocalizations {
   String translate(String key) {
     String? translation = _localizedValues[key];
     if (translation == null) {
-      debugPrint('couldn\'t find translation for: $key');
       return key;
     }
     return translation;
   }
 }
 
-class _DoomiLocalizationsDelegate
+class DoomiLocalizationsDelegate
     extends LocalizationsDelegate<DoomiLocalizations> {
-  const _DoomiLocalizationsDelegate();
+  const DoomiLocalizationsDelegate({this.isInTestingMode = false});
+
+  final bool isInTestingMode;
 
   @override
   bool isSupported(Locale locale) =>
@@ -49,10 +54,16 @@ class _DoomiLocalizationsDelegate
   @override
   Future<DoomiLocalizations> load(Locale locale) async {
     DoomiLocalizations convivioLocalizations = DoomiLocalizations(locale);
-    await convivioLocalizations.load();
-    return convivioLocalizations;
+
+    if (isInTestingMode) {
+      await convivioLocalizations.loadTest();
+      return convivioLocalizations;
+    } else {
+      await convivioLocalizations.load();
+      return convivioLocalizations;
+    }
   }
 
   @override
-  bool shouldReload(_DoomiLocalizationsDelegate old) => false;
+  bool shouldReload(DoomiLocalizationsDelegate old) => false;
 }

@@ -14,3 +14,9 @@ enum ProjectStatus {
   canceled,
   completed,
 }
+
+enum NetworkCallStatus {
+  loading,
+  success,
+  error,
+}

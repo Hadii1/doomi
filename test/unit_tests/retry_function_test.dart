@@ -29,7 +29,7 @@ void main() {
 
       test('last exception is thrown', () async {
         expect(
-          () async => await retry(() async => throw SocketException(''),
+          () async => await retry(() async => throw const SocketException(''),
               allowedRetries: 3),
           throwsA(isA<SocketException>()),
         );

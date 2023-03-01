@@ -9,21 +9,26 @@ class FirebaseAuthService implements IAuthService {
   }
 
   @override
-  Future<User> registerUser(String email, String password) async {
+  Future<String> registerUser(String email, String password) async {
     UserCredential credential = await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
-    return credential.user!;
+    return credential.user!.uid;
   }
 
   @override
-  Future<User> signIn(String email, String password) async {
+  Future<String> signIn(String email, String password) async {
     UserCredential credential = await _auth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
 
-    return credential.user!;
+    return credential.user!.uid;
+  }
+
+  @override
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 }

@@ -2,6 +2,7 @@ import 'package:doomi/interfaces/local_storage.dart';
 import 'package:doomi/interfaces/themes.dart';
 import 'package:doomi/providers/local_stoage_provider.dart';
 import 'package:doomi/utils/Themes/light_theme.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final themeProvider = StateNotifierProvider<ThemeNotifier, ITheme>(
@@ -13,11 +14,14 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, ITheme>(
 class ThemeNotifier extends StateNotifier<ITheme> {
   final ILocalStorage _storage;
 
-  ThemeNotifier(this._storage) : super(_storage.getTheme() ?? LightTheme()) {
-    _initState();
-  }
+  ThemeNotifier(this._storage) : super(_storage.getTheme() ?? LightTheme());
 
-  _initState() {
+  List<Locale> get supportedLocales => [
+        const Locale('ar'),
+        const Locale('en'),
+      ];
+
+  init() {
     ITheme? savedTheme = _storage.getTheme();
     if (savedTheme == null) {
       setTheme(LightTheme());

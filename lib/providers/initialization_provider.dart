@@ -1,7 +1,7 @@
 import 'package:doomi/interfaces/auth.dart';
 import 'package:doomi/interfaces/local_storage.dart';
 import 'package:doomi/interfaces/online_storage.dart';
-import 'package:doomi/models/user.dart';
+import 'package:doomi/models/database%20models/user.dart';
 import 'package:doomi/providers/auth_service_provider.dart';
 import 'package:doomi/providers/local_stoage_provider.dart';
 import 'package:doomi/providers/locale_provider.dart';
@@ -20,14 +20,12 @@ final appInitializationProvider =
     final ILocalStorage localStorage = ref.watch(localStorageProvider);
 
     await localStorage.initialize();
-    await Future.delayed(const Duration(seconds: 2));
 
     // Initialize the theming & language state
-    // by invoking their providers.
-    ref.read(themeProvider);
-    ref.read(localProvider);
+    ref.read(themeProvider.notifier).init();
+    ref.read(localProvider.notifier).init();
 
-    return AppInitializationState.loggedIn;
+    // return AppInitializationState.loggedIn;
 
     String? userId = auth.userId();
 
@@ -40,6 +38,7 @@ final appInitializationProvider =
     ref.read(userProvider.notifier).user = user;
 
     if (user == null) {
+      auth.signOut();
       return AppInitializationState.loggedOut;
     } else {
       return AppInitializationState.loggedIn;
