@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>660914609081-pjhluvm7ba719bdg4g1jl9kdnu9gi3in.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.660914609081-pjhluvm7ba719bdg4g1jl9kdnu9gi3in</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBkEBReO1KQPuwBO69Gn9e7HavEbziyUOk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>660914609081</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.doomi</string>
+	<key>PROJECT_ID</key>
+	<string>doomi-fc43e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>doomi-fc43e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:660914609081:ios:643f706ff4639154e17468</string>
+</dict>
+</plist>

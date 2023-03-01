@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "660914609081",
+    "project_id": "doomi-fc43e",
+    "storage_bucket": "doomi-fc43e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660914609081:android:1c38f84b2b5dced4e17468",
+        "android_client_info": {
+          "package_name": "com.example.doomi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660914609081-aeqjd56fk71tsnq30en0k87j37qbb3l3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk7bmYACHipaPMPYWGBTtlTMJohhIBIgE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660914609081-aeqjd56fk71tsnq30en0k87j37qbb3l3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
