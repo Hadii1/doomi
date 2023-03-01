@@ -26,6 +26,7 @@ void main() {
           projectId: '');
       mockTask = Task(
         id: 'id',
+        dateCompleted: DateTime(2022, 5, 5),
         statusId: 'status_1',
         projectID: 'projectID',
         title: 'Task title',
@@ -60,12 +61,13 @@ void main() {
         ['Start date:', DateFormat.yMd(locale).format(DateTime(2022, 1, 1))],
         ['Due date:', DateFormat.yMd(locale).format(DateTime(2022, 1, 31))],
         ['Tasks:'],
-        ['Title', 'Starting Date', 'Due Date', 'Status'],
+        ['Title', 'Status', 'Starting Date', 'Due Date', 'Completion Date'],
         [
           'Task title',
+          'Status title',
           DateFormat.yMd(locale).format(DateTime(2022, 1, 1)),
           DateFormat.yMd(locale).format(DateTime(2022, 1, 10)),
-          'Status title'
+          DateFormat.yMd(locale).format(DateTime(2022, 5, 5)),
         ],
       ];
       final expectedCsv = const ListToCsvConverter().convert(expectedCsvData);

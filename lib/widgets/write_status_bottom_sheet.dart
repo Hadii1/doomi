@@ -78,7 +78,6 @@ class WriteStatus extends ConsumerWidget {
                     ),
                     child: Text(
                       translate('deleteStatus', context),
-                      textAlign: TextAlign.center,
                       style: theme.body3.copyWith(
                         color: theme.accentColor,
                         decoration: TextDecoration.underline,
@@ -104,7 +103,7 @@ class WriteStatus extends ConsumerWidget {
                 enabled: notifier.isStatusValid,
               ),
               SizedBox(
-                height: MediaQuery.of(context).viewInsets.bottom,
+                height: MediaQuery.of(context).viewInsets.bottom + 24,
               )
             ],
           ),

@@ -26,21 +26,43 @@ class RegisterScreen extends ConsumerWidget {
         padding: EdgeInsets.only(
           left: Spacings.horizontalPadding.left,
           right: Spacings.horizontalPadding.left,
-          bottom: Spacings.bottomScreenPadding(context).bottom,
+          bottom: 48,
         ),
-        child: CtaButton(
-          label: translate('register', context),
-          enabled: notifier.areInfofilled(),
-          animateEnabledState: true,
-          animateAsyncProcess: true,
-          onPressed: () async {
-            try {
-              await notifier.onRegisterPressed();
-              NavigatorService.navigateAndClearHistory(Routes.home, context);
-            } on Exception catch (e, _) {
-              ref.read(errorsProvider.notifier).showError(e, context);
-            }
-          },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            CtaButton(
+              label: translate('register', context),
+              enabled: notifier.areInfofilled(),
+              animateEnabledState: true,
+              animateAsyncProcess: true,
+              onPressed: () async {
+                try {
+                  await notifier.onRegisterPressed();
+                  NavigatorService.navigateAndClearHistory(
+                      Routes.home, context);
+                } on Exception catch (e, _) {
+                  ref.read(errorsProvider.notifier).showError(e, context);
+                }
+              },
+            ),
+            const SizedBox(height: Spacings.spacingBetweenElements),
+            InkWell(
+              onTap: () => NavigatorService.navigateTo(Routes.login, context),
+              child: Padding(
+                padding: const EdgeInsets.all(Spacings.spacingFactor),
+                child: Text(
+                  translate('alreadyHaveAnAccount', context),
+                  textAlign: TextAlign.center,
+                  style: theme.body2.copyWith(
+                    color: theme.accentColor,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
       body: KeyboardDismisser(
@@ -85,22 +107,7 @@ class RegisterScreen extends ConsumerWidget {
                 labelAboveField: translate('confirmPassword', context),
                 onChanged: (v) => notifier.setPasswordConfirmation = v,
               ),
-              const SizedBox(height: Spacings.spacingBetweenElements * 1.5),
-              InkWell(
-                onTap: () => NavigatorService.navigateTo(Routes.login, context),
-                child: Padding(
-                  padding: const EdgeInsets.all(Spacings.spacingFactor),
-                  child: Text(
-                    translate('alreadyHaveAnAccount', context),
-                    textAlign: TextAlign.center,
-                    style: theme.body2.copyWith(
-                      color: theme.accentColor,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: Spacings.spacingBetweenElements * 1.5),
+              const SizedBox(height: Spacings.spacingBetweenElements * 4),
             ],
           ),
         ),

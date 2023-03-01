@@ -1,5 +1,6 @@
 import 'package:csv/csv.dart';
 import 'package:doomi/interfaces/csv.dart';
+import 'package:collection/collection.dart';
 import 'package:doomi/models/database%20models/project.dart';
 import 'package:doomi/models/database%20models/status.dart';
 import 'package:doomi/models/database%20models/task.dart';
@@ -33,20 +34,23 @@ class CsvService implements ICsvService {
       [
         'Tasks:',
       ],
-      [
-        'Title',
-        'Starting Date',
-        'Due Date',
-        'Status',
-      ]
+      ['Title', 'Status', 'Starting Date', 'Due Date', 'Completion Date']
     ];
 
     for (Task task in tasks) {
       List<dynamic> taskData = [
         task.title,
+        statuses
+                .firstWhereOrNull(
+                  (element) => element.id == task.statusId,
+                )
+                ?.title ??
+            '',
         DateFormat.yMd(locale).format(task.startingDate),
         DateFormat.yMd(locale).format(task.dueDate),
-        statuses.firstWhere((element) => element.id == task.statusId).title,
+        task.dateCompleted == null
+            ? ''
+            : DateFormat.yMd(locale).format(task.dateCompleted!),
       ];
 
       csvData.add(taskData);

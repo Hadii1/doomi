@@ -7,8 +7,9 @@ class FilesService implements IFilesService {
   @override
   Future<File> writeFile(String name, String content) async {
     final Directory? directory = Platform.isIOS
-        ? await getApplicationDocumentsDirectory()
+        ? await getDownloadsDirectory()
         : await getExternalStorageDirectory();
+
     if (await directory!.exists() == false) {
       await directory.create(recursive: true);
     }
