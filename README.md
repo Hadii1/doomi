@@ -11,3 +11,5 @@ The exported csv will contain the project details and all the tasks associated w
 The app uses firebase firestore and firebase auth services.
 
 After downloading the repo, run "flutter pub get" to fetch the required dependencies.
+
+Here's also an android apk link: https://www.dropbox.com/s/db8ry0le92idr8g/app-release.apk?dl=0
